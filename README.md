@@ -1,4 +1,4 @@
-# Introduction
+## Introduction
 
 This simple python app repackages data the Traffic Watch NI [website](https://www.trafficwatchni.com/) into GeoJSON for use in alternative applications.
 The application currently supports:
@@ -6,13 +6,13 @@ The application currently supports:
 
 *Services for Incidents and Events tbc*
 
-## Pre-requesites
+### Pre-requesites
 
 This application makes use of 
 - Requests - for interacting with the 3rd party API
 - Flask - for serving the API endpoints
 
-## Usage
+### Usage
 Run as a simple Flask application by:
 ```commandline
 flask run
@@ -44,12 +44,26 @@ and receive a response like
       "start": "Tue, 14 Jan 2020 09:30 GMT",
       "workCarriedOutBy": "Private contractor"
     }
-  }
-  // More entries here 
-  ]
+  },
+  {
+    // More entries here
+  }]
 }
 ```
 
+
+## Usage in Home Assistant
+This app can be used as a source of data for Geo Events in [Home Assistant](https://home-assistant.io) (which wsa the original reason for writing this app).
+You can add this entry to your Home Assistant configuration:
+
+```yaml
+# Example configuration.yaml entry
+geo_location:
+  - platform: geo_json_events
+    url: http://127.0.0.1:5000/roadworks.geojson # or wherever this app is running
+    entity_namespace: trafficwatchni_roadworks
+```
+ 
 
 
 Copyright (c) 2020 Ronan Murray.
